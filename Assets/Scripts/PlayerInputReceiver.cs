@@ -25,8 +25,9 @@ namespace UnityCustomScripts
             {
                 playerController.sprint = context.action.IsPressed();
             }
-            public void RECEIVE_InteractInput(InputAction.CallbackContext context)
+            public void RECEIVE_ShootInput(InputAction.CallbackContext context)
             {
+                if (context.started) playerController.Shoot();
                 //carMovement.brake = context.action.IsPressed();
             }
             public void RECEIVE_JumpInput(InputAction.CallbackContext context)

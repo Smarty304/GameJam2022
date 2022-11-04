@@ -38,9 +38,9 @@ namespace UnityCustomScripts
                 playerInputReceiver.RECEIVE_JumpInput(context);
             }
 
-            public void SEND_InteractInput(InputAction.CallbackContext context)
+            public void SEND_ShootInput(InputAction.CallbackContext context)
             {
-                playerInputReceiver.RECEIVE_InteractInput(context);
+                playerInputReceiver.RECEIVE_ShootInput(context);
             }
         }
     }

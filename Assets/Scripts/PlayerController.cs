@@ -43,12 +43,14 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     // Public for external hooks
     public Vector3 Velocity { get; private set; }
     public SpriteRenderer _renderer;
+    public Inventory _inventory;
 
     [Header("Input")]
     public Vector2 move;
     public bool sprint;
     public bool jumpUp;
     public bool jumpDown;
+    public bool shoot;
     public FrameInput Input { get; private set; }
 
     public bool JumpingThisFrame { get; private set; }
@@ -58,7 +60,16 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private Vector3 _lastPosition;
     private float _currentHorizontalSpeed, _currentVerticalSpeed;
-    [SerializeField] private float _sprintSpeed = 1.5f;
+
+    [SerializeField] 
+    private float _sprintSpeed = 1.5f;
+
+    [SerializeField]
+    private float _toss_factor = 1.0f;
+
+    [SerializeField]
+    private float _toss_angle_deg = 45f; 
+    
 
     // This is horrible, but for some reason colliders are not fully established when update starts...
     private bool _active;
@@ -207,7 +218,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             _currentHorizontalSpeed += Input.X  * _acceleration * Time.deltaTime;
 
             // clamped by max frame movement
-            _currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_moveClamp, _moveClamp);
+            float springFactor = sprint ? _sprintSpeed : 1;
+            _currentHorizontalSpeed = Mathf.Clamp(_currentHorizontalSpeed, -_moveClamp * springFactor, _moveClamp * springFactor);
 
             // Apply bonus at the apex of a jump
             var apexBonus = Mathf.Sign(Input.X) * _apexBonus * _apexPoint;
@@ -222,6 +234,17 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             // Don't walk through walls
             _currentHorizontalSpeed = 0;
         }
+    }
+
+    public void Shoot()
+    {
+        GameObject bottle = Instantiate(_inventory.YellowBottlePrefab);
+
+        bottle.transform.position = transform.position;
+
+        float toss_x = _currentHorizontalSpeed * _toss_factor;
+        float toss_y = Mathf.Abs(_currentHorizontalSpeed) * _toss_factor * Mathf.Clamp(_toss_angle_deg / 180 * Mathf.PI, 0f, Mathf.PI / 2);
+        bottle.GetComponent<Rigidbody2D>().AddForce(new Vector2(toss_x, toss_y), ForceMode2D.Impulse);
     }
 
     #endregion
@@ -356,339 +379,3 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     #endregion
 }
-
-/*
-public class PlayerController : MonoBehaviour
-{
-    private Rigidbody2D _rigidbody2D;
-    private SpriteRenderer _renderer;
-
-    [Header("Input")]
-    public Vector2 RawMove;
-    public bool sprint;
-    public bool jumpUp;
-    public bool jumpDown;
-
-    public bool JumpingThisFrame { get; private set; }
-    public bool LandingThisFrame { get; private set; }
-    
-    private float _currentHorizontalSpeed, _currentVerticalSpeed;
-    
-    public Vector3 Velocity { get; private set; }
-
-
-    public float HorizontalMoveSpeed, VerticalMoveSpeed;
-    public float MAXJumpTime = 0.15f; // how long the player can hold the jump button to get higher
-    public float ADDITIONALJumpForce = 10; // How much additional force is added, higher value -> less force
-    public const float GRAVITY_SCALE = 5f; // normal gravity scale when not falling down
-    public const float FALLING_GRAVITY_SCALE = 8f; // how much gravity affects the player when falling down
-    public float MIN_FORCE = 5;
-    public float MAX_FORCE_NORMAL = 6;
-    public float MAX_FORCE_FAST = 10;
-    private float _maxForce; // current speed
-    [SerializeField] private bool _isGrounded;
-    private Vector2 _movement;
-    private Vector2 _jumpForce;
-    private float _currentJumpTime;
-    private bool _jumping;
-
-    
-    private void Awake()
-    {
-        if(_rigidbody2D = GetComponent<Rigidbody2D>()){
-            Debug.Log($"Rigidbody (ID:{_rigidbody2D.GetInstanceID()}) pulled!");
-        }
-        if(_renderer = GetComponentInChildren<SpriteRenderer>()){
-            Debug.Log($"SpriteRenderer (ID:{_renderer.GetInstanceID()}) pulled!");
-        }
-    }
-
-    private void CalculateMovement(){
-
-        if(_isGrounded){
-            _rigidbody2D.AddForce(RawMove * (sprint ? MAX_FORCE_FAST : MIN_FORCE), ForceMode2D.Force);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Calculate velocity
-        Velocity = (transform.position - _lastPosition) / Time.deltaTime;
-        _lastPosition = transform.position;
-
-        if(Time.timeScale <= 0f){ return; }
-        
-        RunCollisionChecks();
-
-        CalculateWalk(); // Horizontal movement
-        CalculateJumpApex(); // Affects fall speed, so calculate before gravity
-        CalculateGravity(); // Vertical movement
-        CalculateJump(); // Possibly overrides vertical
-
-        MoveCharacter(); // Actually perform the axis movement
-
-        if (RawMove.x != 0) _renderer.flipX = RawMove.x < 0;
-        
-
-        // if (Input.GetKey(KeyCode.W)) // Jump
-        // {
-        //     _movement.y = 1;
-        //     if (_jumping)
-        //     {
-        //         _currentJumpTime += Time.deltaTime;
-        //     }
-        // }
-        // else
-        // {
-        //     _movement.y = 0;
-        //     if (_jumping)
-        //     {
-        //         _jumping = false;
-        //         _currentJumpTime = 0;
-        //     }
-        // }
-    }
-
-    private void FixedUpdate()
-    {
-        // CalculateMovement();
-        MoveCharacter();
-        
-    //     if (_movement.x < 0) // Left movement
-    //     {
-    //         GetComponent<Rigidbody2D>().AddForce(new Vector2(-HorizontalMoveSpeed * Time.fixedDeltaTime,
-    //             0), ForceMode2D.Force);
-
-    //         if (GetComponent<Rigidbody2D>().velocity.x > -MIN_FORCE)
-    //         {
-    //             GetComponent<Rigidbody2D>().velocity = new Vector2(-MIN_FORCE, GetComponent<Rigidbody2D>().velocity.y);
-    //         }
-    //         else if (GetComponent<Rigidbody2D>().velocity.x < -_maxForce)
-    //         {
-    //             GetComponent<Rigidbody2D>().velocity = new Vector2(-_maxForce, GetComponent<Rigidbody2D>().velocity.y);
-    //         }
-    //     }
-    //     else if (_movement.x > 0) // Right movement
-    //     {
-    //         GetComponent<Rigidbody2D>().AddForce(new Vector2(+HorizontalMoveSpeed * Time.fixedDeltaTime,
-    //             0), ForceMode2D.Force);
-
-    //         if (GetComponent<Rigidbody2D>().velocity.x < MIN_FORCE)
-    //         {
-    //             GetComponent<Rigidbody2D>().velocity = new Vector2(MIN_FORCE, GetComponent<Rigidbody2D>().velocity.y);
-    //         }
-    //         else if (GetComponent<Rigidbody2D>().velocity.x > _maxForce)
-    //         {
-    //             GetComponent<Rigidbody2D>().velocity = new Vector2(_maxForce, GetComponent<Rigidbody2D>().velocity.y);
-    //         }
-    //     }
-    //     else // None
-    //     {
-    //         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
-    //     }
-
-    //     if (_movement.y > 0) // Player presses jump button
-    //     {
-    //         _Jump();
-    //     }
-
-    //     // When the player falls down, the gravity scale is increased
-    //     GetComponent<Rigidbody2D>().gravityScale =
-    //         GetComponent<Rigidbody2D>().velocity.y < 0 ? FALLING_GRAVITY_SCALE : GRAVITY_SCALE;
-    // }
-
-    // private void _Jump()
-    // {
-    //     // If the player just started jumping, the jump height can be increased by holding jump button
-    //     if (_jumping && _currentJumpTime <= MAXJumpTime)
-    //     {
-    //         GetComponent<Rigidbody2D>()
-    //             .AddForce(Vector2.up * Time.fixedDeltaTime * VerticalMoveSpeed / ADDITIONALJumpForce,
-    //                 ForceMode2D.Impulse);
-    //     }
-
-    //     if (!_touchesGround ||
-    //         GetComponent<Rigidbody2D>().velocity.y <
-    //         -0.001) // player cant jump if he doesnt touch the ground or is falling down
-    //     {
-    //         return;
-    //     }
-
-    //     _touchesGround = false;
-    //     _jumping = true;
-    //     GetComponent<Rigidbody2D>().AddForce(Vector2.up * Time.fixedDeltaTime * VerticalMoveSpeed, ForceMode2D.Impulse);
-    }
-
-    private void MoveCharacter() {
-        var pos = transform.position;
-        Vector3 move = RawMove * Time.deltaTime;
-        var furthestPoint = pos + move;
-
-        transform.position += move * (sprint ? MAX_FORCE_FAST : MIN_FORCE);
-    }
-
-    #region Collisions
-
-    public struct RayRange {
-        public RayRange(float x1, float y1, float x2, float y2, Vector2 dir) {
-            Start = new Vector2(x1, y1);
-            End = new Vector2(x2, y2);
-            Dir = dir;
-        }
-
-        public readonly Vector2 Start, End, Dir;
-    }
-
-    [Header("COLLISION")] [SerializeField] private Bounds _characterBounds;
-    [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private int _detectorCount = 3;
-    [SerializeField] private float _detectionRayLength = 0.1f;
-    [SerializeField] [Range(0.1f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
-
-    private RayRange _raysUp, _raysRight, _raysDown, _raysLeft;
-    private bool _colUp, _colRight, _colDown, _colLeft;
-
-    private float _timeLeftGrounded;
-
-    private void RunCollisionChecks() {
-        // Generate ray ranges. 
-        CalculateRayRanged();
-
-        // Ground
-        LandingThisFrame = false;
-        var groundedCheck = RunDetection(_raysDown);
-        if (_colDown && !groundedCheck) _timeLeftGrounded = Time.time; // Only trigger when first leaving
-        else if (!_colDown && groundedCheck) {
-            _coyoteUsable = true; // Only trigger when first touching
-            LandingThisFrame = true;
-        }
-
-        _colDown = groundedCheck;
-
-        // The rest
-        _colUp = RunDetection(_raysUp);
-        _colLeft = RunDetection(_raysLeft);
-        _colRight = RunDetection(_raysRight);
-
-        bool RunDetection(RayRange range) {
-            return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, _groundLayer));
-        }
-    }
-
-    private void CalculateRayRanged() {
-        // This is crying out for some kind of refactor. 
-        var b = new Bounds(transform.position, _characterBounds.size);
-
-        _raysDown = new RayRange(b.min.x + _rayBuffer, b.min.y, b.max.x - _rayBuffer, b.min.y, Vector2.down);
-        _raysUp = new RayRange(b.min.x + _rayBuffer, b.max.y, b.max.x - _rayBuffer, b.max.y, Vector2.up);
-        _raysLeft = new RayRange(b.min.x, b.min.y + _rayBuffer, b.min.x, b.max.y - _rayBuffer, Vector2.left);
-        _raysRight = new RayRange(b.max.x, b.min.y + _rayBuffer, b.max.x, b.max.y - _rayBuffer, Vector2.right);
-    }
-
-
-    private IEnumerable<Vector2> EvaluateRayPositions(RayRange range) {
-        for (var i = 0; i < _detectorCount; i++) {
-            var t = (float)i / (_detectorCount - 1);
-            yield return Vector2.Lerp(range.Start, range.End, t);
-        }
-    }
-
-    #endregion
-    #region Gravity
-
-        [Header("GRAVITY")] [SerializeField] private float _fallClamp = -40f;
-        [SerializeField] private float _minFallSpeed = 80f;
-        [SerializeField] private float _maxFallSpeed = 120f;
-        private float _fallSpeed;
-
-        private void CalculateGravity() {
-            if (_colDown) {
-                // Move out of the ground
-                if (_currentVerticalSpeed < 0) _currentVerticalSpeed = 0;
-            }
-            else {
-                // Add downward force while ascending if we ended the jump early
-                var fallSpeed = _endedJumpEarly && _currentVerticalSpeed > 0 ? _fallSpeed * _jumpEndEarlyGravityModifier : _fallSpeed;
-
-                // Fall
-                _currentVerticalSpeed -= fallSpeed * Time.deltaTime;
-
-                // Clamp
-                if (_currentVerticalSpeed < _fallClamp) _currentVerticalSpeed = _fallClamp;
-            }
-        }
-
-        #endregion
-    #region Jump
-
-        [Header("JUMPING")] [SerializeField] private float _jumpHeight = 30;
-        [SerializeField] private float _jumpApexThreshold = 10f;
-        [SerializeField] private float _coyoteTimeThreshold = 0.1f;
-        [SerializeField] private float _jumpBuffer = 0.1f;
-        [SerializeField] private float _jumpEndEarlyGravityModifier = 3;
-        private bool _coyoteUsable;
-        private bool _endedJumpEarly = true;
-        private float _apexPoint; // Becomes 1 at the apex of a jump
-        private float _lastJumpPressed;
-        private bool CanUseCoyote => _coyoteUsable && !_colDown && _timeLeftGrounded + _coyoteTimeThreshold > Time.time;
-        private bool HasBufferedJump => _colDown && _lastJumpPressed + _jumpBuffer > Time.time;
-
-        public Vector2 Speed => throw new NotImplementedException();
-
-        public bool Crouching => throw new NotImplementedException();
-
-        private void CalculateJumpApex() {
-            if (!_colDown) {
-                // Gets stronger the closer to the top of the jump
-                _apexPoint = Mathf.InverseLerp(_jumpApexThreshold, 0, Mathf.Abs(Velocity.y));
-                _fallSpeed = Mathf.Lerp(_minFallSpeed, _maxFallSpeed, _apexPoint);
-            }
-            else {
-                _apexPoint = 0;
-            }
-        }
-
-        private void CalculateJump() {
-            // Jump if: grounded or within coyote threshold || sufficient jump buffer
-            if (jumpDown && CanUseCoyote || HasBufferedJump) {
-                _currentVerticalSpeed = _jumpHeight;
-                _endedJumpEarly = false;
-                _coyoteUsable = false;
-                _timeLeftGrounded = float.MinValue;
-                JumpingThisFrame = true;
-            }
-            else {
-                JumpingThisFrame = false;
-            }
-
-            // End the jump early if button released
-            if (!_colDown && jumpUp && !_endedJumpEarly && Velocity.y > 0) {
-                // _currentVerticalSpeed = 0;
-                _endedJumpEarly = true;
-            }
-
-            if (_colUp) {
-                if (_currentVerticalSpeed > 0) _currentVerticalSpeed = 0;
-            }
-        }
-
-        #endregion
-    
-
-
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        // if (other.collider.CompareTag("SolidObject"))
-        // {
-        //     ContactPoint2D contactPoint = other.GetContact(0);
-
-        //     if (Vector3.Dot(contactPoint.normal, Vector3.up) > 0.5)
-        //     {
-        //         _touchesGround = true;
-        //         _currentJumpTime = 0;
-        //     }
-        // }
-    }
-}
-*/
