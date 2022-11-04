@@ -13,6 +13,8 @@ using Object = System.Object;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
+    
+    private SpriteRenderer _renderer;
 
     [Header("Input")]
     public Vector2 RawMove;
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        // if (RawMove.x != 0) _renderer.flipX = _player.Input.X < 0;
         // if (Input.GetKey(KeyCode.D)) // Move right
         // {
         //     _movement.x = 1;
