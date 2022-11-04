@@ -61,17 +61,17 @@ public class BasicEnemyController : MonoBehaviour
         SwitchState(State.DEAD);
     }
 
-    public void GetHitBy(Bottle.BottleType bottle)
+    public void GetHitBy(Status.Type bottleType)
     {
-        switch(bottle)
+        switch(bottleType)
         {
-            case Bottle.BottleType.blue:
+            case Status.Type.blue:
                 CurrentSpeed = 0.0f;
                 break;
-            case Bottle.BottleType.red:
+            case Status.Type.red:
                 CurrentSpeed = 2.0f * Speed;
                 break;
-            case Bottle.BottleType.yellow:
+            case Status.Type.yellow:
                 CurrentSpeed = 0.5f * Speed;
                 break;
         }

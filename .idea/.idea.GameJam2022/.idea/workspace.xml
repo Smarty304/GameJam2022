@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92ca2896-3975-472d-9d83-83a0aa04f4d2" name="Changes" comment="" />
+    <list default="true" id="92ca2896-3975-472d-9d83-83a0aa04f4d2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GameJam2022/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GameJam2022/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BasicEnemyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BasicEnemyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/cameracontroller.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/cameracontroller.cs.meta" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,6 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1667593855132</updated>
       <workItem from="1667593861690" duration="3455000" />
+      <workItem from="1667604658710" duration="360000" />
     </task>
     <servers />
   </component>
