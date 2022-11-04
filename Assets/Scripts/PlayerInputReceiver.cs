@@ -19,7 +19,7 @@ namespace UnityCustomScripts
 
             public void RECEIVE_MoveInput(InputAction.CallbackContext context)
             {
-                playerController.RawMove = context.ReadValue<Vector2>();
+                playerController.move = context.ReadValue<Vector2>();
             }
             public void RECEIVE_SprintInput(InputAction.CallbackContext context)
             {
@@ -31,16 +31,14 @@ namespace UnityCustomScripts
             }
             public void RECEIVE_JumpInput(InputAction.CallbackContext context)
             {
-                // if(context.started){
-                //     Debug.Log("JumpInput Started: " + context.action.IsPressed());
-                //     playerController.jumpDown = false;
-                //     playerController.jumpUp = context.action.IsPressed();
-                // }
-                // if(context.canceled){
-                //     Debug.Log("JumpInput Canceled: " + context.action.WasReleasedThisFrame());
-                //     playerController.jumpUp = false;
-                //     playerController.jumpDown = context.action.WasReleasedThisFrame();
-                // }
+                if(context.started){
+                    playerController.jumpDown = false;
+                    playerController.jumpUp = context.action.IsPressed();
+                }
+                if(context.canceled){
+                    playerController.jumpUp = false;
+                    playerController.jumpDown = context.action.WasReleasedThisFrame();
+                }
             }
         }
     }
