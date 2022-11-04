@@ -7,19 +7,14 @@ using UnityEngine;
  */
 public class Bottle : MonoBehaviour
 {
-    [SerializeField] private BottleType _bottleType;
+    [SerializeField]
+    private Status.Type _bottleType;
         
     private bool _pickedUp; // if the bottle was picked up by the player or still lays on the ground
-
-    public enum BottleType
-    {
-        red,
-        blue,
-        yellow
-    }
-
+    
     void Start()
     {
+        
         _pickedUp = false;
     }
 
@@ -40,6 +35,7 @@ public class Bottle : MonoBehaviour
                 transform.parent = other.transform;
                 transform.localPosition = Vector3.zero;
                 _pickedUp = true;
+                
             }
         }
 
@@ -76,7 +72,7 @@ public class Bottle : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
     }
 
-    public BottleType GetBottleType()
+    public Status.Type GetBottleType()
     {
         return _bottleType;
     }
