@@ -6,14 +6,10 @@ public class BasicEnemyController : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> Points;
+    private int NextPointIndex = 0;
 
     [SerializeField]
-    private Transform GroundCheck, WallCheck;
-
-    [SerializeField]
-    private Transform GroundCheckDistance, WallCheckDistance;
-
-    private bool GroundDectected, WallDetected;
+    private float Speed;
 
     private enum State
     {
@@ -22,7 +18,7 @@ public class BasicEnemyController : MonoBehaviour
         DEAD
     }
 
-    private State CurrentState;
+    private State CurrentState = State.WALKING;
 
     private void Update()
     {
@@ -47,8 +43,21 @@ public class BasicEnemyController : MonoBehaviour
 
     private void UpdateWalkingState()
     {
+        Vector2 pathToPoint = Points[NextPointIndex].transform.position - transform.position;
+        float distance = pathToPoint.magnitude;
+        Vector2 direction = pathToPoint.normalized;
 
+        float stepSize = Mathf.Min(distance, Time.deltaTime * Speed);
+        Vector2 step =  stepSize * direction;
+
+        transform.position += new Vector3(step.x, step.y, 0);
+
+        if (stepSize == distance)
+        {
+            NextPointIndex = NextPointIndex + 1 < Points.Count ? NextPointIndex + 1 : 0;
+        }
     }
+
     private void ExitWalkingState()
     {
 
