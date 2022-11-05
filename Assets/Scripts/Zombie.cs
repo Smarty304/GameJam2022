@@ -57,12 +57,6 @@ public class Zombie : Enemy
         if (other.CompareTag("ChemicalReaction"))
         {
             // TODO Add reaction to chemical reaction
-
-            if (other.GetComponent<ChemicalSerum>().ReactionType == ChemicalSerum.ChemicalReactionType.explosion)
-            {
-                base.InflictDamage(1);
-            }
-            
         }
     }
 }
