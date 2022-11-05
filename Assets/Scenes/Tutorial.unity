@@ -547,8 +547,8 @@ GameObject:
   - component: {fileID: 505603841}
   - component: {fileID: 505603840}
   m_Layer: 7
-  m_Name: Tilemap
-  m_TagString: Untagged
+  m_Name: SolidObjects
+  m_TagString: SolidObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42063,6 +42063,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8702627922963617698, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702627922963617698, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
