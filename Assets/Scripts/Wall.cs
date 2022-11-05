@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Wall : MonoBehaviour
@@ -13,24 +15,7 @@ public class Wall : MonoBehaviour
         wallSprite = GetComponent<SpriteRenderer>();
         wallStatus = Chemical.Type.empty;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Bottle"))
-        {
-            bottleRoyal = collision.gameObject;
-            if (wallStatus == Chemical.Type.empty)
-            {
-                ChangeWallStatus(bottleRoyal.GetComponent<Bottle>().GetBottleType());
-                Destroy(collision.gameObject);
-            }
-            else
-            {
-                Destroy(this.gameObject); // or something different
-            }
-        }
-    }
-
+    
     void ChangeWallStatus(Chemical.Type newStatus)
     {
         wallStatus = newStatus;
@@ -47,6 +32,20 @@ public class Wall : MonoBehaviour
         if (wallStatus == Chemical.Type.yellow)
         {
             wallSprite.color = Color.yellow;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("ChemicalReaction"))
+        {
+            var reactionType = other.GetComponent<ChemicalSerum>().ReactionType;
+
+            if (reactionType == ChemicalSerum.ChemicalReactionType.explosion)
+            {
+                Destroy(other.gameObject);
+                Destroy(this.gameObject);    
+            }
         }
     }
 }

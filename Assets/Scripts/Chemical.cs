@@ -7,7 +7,9 @@ public class Chemical
         empty,
         red,
         blue,
-        yellow
+        yellow,
+        white,
+        green
     }
 
     public Chemical(Type statusType)

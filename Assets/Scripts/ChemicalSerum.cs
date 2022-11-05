@@ -24,15 +24,19 @@ public class ChemicalSerum : MonoBehaviour
         // Disable / enable to trigger collision
         // GetComponent<Collider2D>().enabled = false;
         // GetComponent<Collider2D>().enabled = true;
-        
-        if (Type == Chemical.Type.red)
-        {
-            if (bottle.GetBottleType() == Chemical.Type.yellow)
-            {
-                // Explosion RED + YELLOW
-                ReactionType = ChemicalReactionType.explosion;
-            }
-        }
-        
+
+        ReactionType = CreateReaction(Type, bottle.GetComponent<Bottle>().GetBottleType());
     }
+
+    public static ChemicalReactionType CreateReaction(Chemical.Type t1, Chemical.Type t2)
+    {
+        if (t1 == Chemical.Type.red && t2 == Chemical.Type.yellow ||
+            t1 == Chemical.Type.yellow && t2 == Chemical.Type.red)
+        {
+            return ChemicalReactionType.explosion;
+        }
+
+        return ChemicalReactionType.nothing;
+    }
+    
 }

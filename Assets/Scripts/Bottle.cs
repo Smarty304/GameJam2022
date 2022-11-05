@@ -26,7 +26,7 @@ public class Bottle : MonoBehaviour
             if (other.transform.CompareTag("Enemy"))
             {
                 // Bottle hit an enemy
-                // TODO Add impact on enemy
+                other.transform.GetComponent<Enemy>().AddChemical(_bottleType);
                 Destroy(this.gameObject);
             }
 
