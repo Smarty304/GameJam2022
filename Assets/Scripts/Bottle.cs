@@ -14,7 +14,6 @@ public class Bottle : MonoBehaviour
     
     void Start()
     {
-        
         _pickedUp = false;
     }
 
@@ -28,14 +27,6 @@ public class Bottle : MonoBehaviour
             {
                 // Player needs to collect bottle
                 // TODO other.GetComponent<PlayerController>().Collect(this);
-
-                // Collider and Renderer get disabled on pickup but the item GameObject is not removed
-                GetComponent<SpriteRenderer>().enabled = false;
-                GetComponent<Collider2D>().enabled = false;
-                transform.parent = other.transform;
-                transform.localPosition = Vector3.zero;
-                _pickedUp = true;
-                
             }
         }
 
@@ -75,6 +66,17 @@ public class Bottle : MonoBehaviour
     public Status.Type GetBottleType()
     {
         return _bottleType;
+    }
+
+    /**
+     * When the player collides with the bottle trigger
+     */
+    public void OnPickup()
+    {
+        // Collider and Renderer get disabled on pickup but the item GameObject is not removed
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        _pickedUp = true;
     }
     
 }
