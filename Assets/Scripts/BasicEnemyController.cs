@@ -10,6 +10,9 @@ public class BasicEnemyController : MonoBehaviour
 
     [SerializeField]
     private float Speed;
+    private float CurrentSpeed;
+
+    private float BottleDuration;
 
     private enum State
     {
@@ -19,6 +22,11 @@ public class BasicEnemyController : MonoBehaviour
     }
 
     private State CurrentState = State.WALKING;
+
+    private void Start()
+    {
+        CurrentSpeed = Speed;
+    }
 
     private void Update()
     {
@@ -34,7 +42,42 @@ public class BasicEnemyController : MonoBehaviour
                 UpdateDeadState();
                 break;
         }
+
+        UpdateBottleEffect();
     }
+
+    private void UpdateBottleEffect()
+    {
+        BottleDuration = Mathf.Min(BottleDuration - Time.deltaTime, 0f);
+
+        if (BottleDuration == 0f)
+        {
+            CurrentSpeed = Speed;
+        }
+    }
+
+    public void Kill()
+    {
+        SwitchState(State.DEAD);
+    }
+
+   /* public void GetHitBy(Bottle.BottleType bottle)
+    {
+        switch(bottle)
+        {
+            case Bottle.BottleType.blue:
+                CurrentSpeed = 0.0f;
+                break;
+            case Bottle.BottleType.red:
+                CurrentSpeed = 2.0f * Speed;
+                break;
+            case Bottle.BottleType.yellow:
+                CurrentSpeed = 0.5f * Speed;
+                break;
+        }
+
+        BottleDuration = 5f;
+    } */
 
     private void EnterWalkingState()
     {
@@ -47,7 +90,7 @@ public class BasicEnemyController : MonoBehaviour
         float distance = pathToPoint.magnitude;
         Vector2 direction = pathToPoint.normalized;
 
-        float stepSize = Mathf.Min(distance, Time.deltaTime * Speed);
+        float stepSize = Mathf.Min(distance, Time.deltaTime * CurrentSpeed);
         Vector2 step =  stepSize * direction;
 
         transform.position += new Vector3(step.x, step.y, 0);
