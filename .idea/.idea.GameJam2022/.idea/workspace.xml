@@ -6,17 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="92ca2896-3975-472d-9d83-83a0aa04f4d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GameJam2022/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GameJam2022/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BasicEnemyContainer.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BasicEnemyContainer.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SoundTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SoundTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BasicEnemyController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BasicEnemyController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bottle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bottle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Chemical.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Chemical.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChemicalSerum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChemicalSerum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Bottle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Bottle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Tutorial.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Tutorial.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Wall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Wall.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1667593855132</updated>
       <workItem from="1667593861690" duration="3455000" />
-      <workItem from="1667679056023" duration="4064000" />
+      <workItem from="1667679056023" duration="4880000" />
     </task>
     <servers />
   </component>

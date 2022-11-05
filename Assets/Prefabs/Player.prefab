@@ -198,7 +198,7 @@ MonoBehaviour:
   _movementControl: {fileID: -6878087856663992845, guid: 0f13094192031bd41a0578eed3495fc9, type: 3}
   _throw: {fileID: -3519633580588239393, guid: 0f13094192031bd41a0578eed3495fc9, type: 3}
   currentBottle: {fileID: 0}
-  throwForce: 10
+  throwForce: 250
   HorizontalMoveSpeed: 10
   VerticalMoveSpeed: 300
   MaxJumpTime: 0.15
