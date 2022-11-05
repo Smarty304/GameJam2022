@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 8702627922963617693}
   - component: {fileID: 6101584152347926330}
   - component: {fileID: 6360267361997855247}
+  - component: {fileID: 2990892973080396365}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80063fdc7b531f046b48b1d9b9760de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 2990892973080396365}
   _movementControl: {fileID: -6878087856663992845, guid: 0f13094192031bd41a0578eed3495fc9, type: 3}
   _throw: {fileID: -3519633580588239393, guid: 0f13094192031bd41a0578eed3495fc9, type: 3}
   currentBottle: {fileID: 0}
@@ -336,3 +338,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0.045250893, y: -0.055535316}
   m_Size: {x: 0.6840377, y: 0.95142937}
   m_Direction: 0
+--- !u!95 &2990892973080396365
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8702627922963617698}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d4cfe0acd43ed84492f0daa6e830952, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
