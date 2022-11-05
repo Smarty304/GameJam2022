@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [Header("BottleStuff")] [SerializeField]
     GameObject currentBottle; // WorkAround for Bottle PickUp
 
+    [Header("SoundStuff")]
+    
     [SerializeField] float throwForce = 10f;
     bool isAliveBottle = false;
 
@@ -32,6 +34,12 @@ public class PlayerController : MonoBehaviour
     private InventorySlot[] _slots;
     private Rigidbody2D _myRigidbody;
 
+    AudioPlayer audioPlayer;
+
+    private void Awake()
+    {
+        audioPlayer = FindObjectOfType<AudioPlayer>();
+    }
     private void OnEnable()
     {
         _movementControl.action.Enable();
@@ -43,7 +51,7 @@ public class PlayerController : MonoBehaviour
         _movementControl.action.Disable();
         _throw.action.Disable();
     }
-
+    
     void Start()
     {
         _myRigidbody = GetComponent<Rigidbody2D>();
@@ -203,6 +211,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isAliveBottle)
         {
+            audioPlayer.PlayThrowingClip();
             Vector3 spawnDirection = _looksLeft ? Vector3.left : Vector3.right;
             GameObject aliveBottle =
                 Instantiate(currentBottle, transform.position + spawnDirection, Quaternion.identity);
