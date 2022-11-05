@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,12 @@ using UnityEngine;
  */
 public class Bottle : MonoBehaviour
 {
-    [SerializeField]
-    private Chemical.Type _bottleType;
-        
+    [SerializeField] private Chemical.Type _bottleType;
+
+    [SerializeField] private GameObject _chemicalSerum;
     private bool _pickedUp; // if the bottle was picked up by the player or still lays on the ground
-    
+
+
     void Start()
     {
         _pickedUp = false;
@@ -19,29 +21,8 @@ public class Bottle : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        #region BottleOnGround
-
-        if (!_pickedUp) // Bottle has not been collected by the player yet
+        if (!_pickedUp) // Bottle was thrown by the player
         {
-            if (other.transform.CompareTag("Player"))
-            {
-                // Player needs to collect bottle
-                // TODO other.GetComponent<PlayerController>().Collect(this);
-            }
-        }
-
-        #endregion
-
-        #region BottleThrown
-
-        else // Bottle was thrown by the player
-        {
-            if (other.transform.CompareTag("Wall"))
-            {
-                // Bottle hit another wall
-                // TODO Add impact on wall
-                Destroy(this.gameObject);
-            }
 
             if (other.transform.CompareTag("Enemy"))
             {
@@ -49,9 +30,37 @@ public class Bottle : MonoBehaviour
                 // TODO Add impact on enemy
                 Destroy(this.gameObject);
             }
-        }
 
-        #endregion
+            if (other.transform.CompareTag("SolidObject") || other.transform.CompareTag("Wall"))
+            {
+                Collider2D[] colliders = new Collider2D[10];
+                for (int i = 0;
+                    i < Physics2D.OverlapCollider(GetComponent<Collider2D>(), new ContactFilter2D().NoFilter(),
+                        colliders);
+                    i++)
+                {
+                    if (colliders[i].CompareTag("ChemicalSerum"))
+                    {
+                        colliders[i].GetComponent<ChemicalSerum>().OnCollisionWithBottle(this);
+                        Destroy(this.gameObject);
+                        return;
+                    }
+                }
+
+                // Create serum
+                var serum = Instantiate(_chemicalSerum, transform.position, Quaternion.identity);
+                serum.GetComponent<ChemicalSerum>().Type = _bottleType;
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        /*   if (other.CompareTag("ChemicalSerum"))
+           {
+               other.GetComponent<ChemicalSerum>().OnCollisionWithBottle(this);
+           } */
     }
 
     /**
@@ -78,5 +87,4 @@ public class Bottle : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         _pickedUp = true;
     }
-    
 }

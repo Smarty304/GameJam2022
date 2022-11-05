@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 7c09c205d9c6a4744ba7c88967229187
+guid: 586d64f2205ae6e44bd698b56b639df9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - _chemicalSerum: {fileID: 2410336111428345078, guid: 8ddddaa4d329a7f47a8912cbd6630a7b, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
