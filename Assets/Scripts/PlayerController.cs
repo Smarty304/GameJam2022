@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
             _myRigidbody.velocity.y <
             -0.001) // player cant jump if he doesnt touch the ground or is falling down
         {
+            Debug.Log("Player cant jump");
             return;
         }
 
