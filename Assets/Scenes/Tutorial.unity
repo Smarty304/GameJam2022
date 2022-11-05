@@ -336,6 +336,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &283025616 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8702627922963617698, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+  m_PrefabInstance: {fileID: 8702627922797977277}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &329474849
 GameObject:
   m_ObjectHideFlags: 0
@@ -41214,7 +41219,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< Updated upstream
   m_RootOrder: 9
+=======
+  m_RootOrder: 12
+>>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &966007867
 PrefabInstance:
@@ -42095,12 +42104,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8702627922963617694, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
   m_PrefabInstance: {fileID: 8702627922797977277}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 --- !u!1 &1986842694
 GameObject:
+=======
+--- !u!70 &1986038056
+CapsuleCollider2D:
+>>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1986842696}
@@ -42404,6 +42419,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f73ee07d9965a4a4597ea6bc29253b33, type: 3}
+=======
+  m_GameObject: {fileID: 283025616}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.9, y: 0.98}
+  m_Direction: 0
+>>>>>>> Stashed changes
 --- !u!1001 &8702627922797977277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42411,9 +42438,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: throwForce
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 8702627922963617694, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< Updated upstream
       value: 11
+=======
+      value: 13
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8702627922963617694, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42475,5 +42510,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8702627922963617689, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
