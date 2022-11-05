@@ -200,9 +200,9 @@ MonoBehaviour:
   currentBottle: {fileID: 0}
   throwForce: 10
   HorizontalMoveSpeed: 10
-  VerticalMoveSpeed: 400
+  VerticalMoveSpeed: 300
   MaxJumpTime: 0.15
-  AdditionalJumpForce: 10
+  AdditionalJumpForce: 5
 --- !u!50 &8702627922963617693
 Rigidbody2D:
   serializedVersion: 4

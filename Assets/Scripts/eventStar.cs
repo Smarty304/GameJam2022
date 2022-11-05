@@ -14,12 +14,14 @@ public class eventStar : MonoBehaviour
     {
         yield return new WaitForSeconds(20f);
         sound.Play();
+        StartCoroutine(con());
     }
     IEnumerator con()
     {
-        StartCoroutine(con());
+        
         yield return new WaitForSeconds(60f);
         sound.Play();
+        StartCoroutine(con());
     }
     // Update is called once per frame
     void Update()
