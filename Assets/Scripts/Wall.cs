@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +23,10 @@ public class Wall : MonoBehaviour
             if (wallStatus == Chemical.Type.empty)
             {
                 ChangeWallStatus(bottleRoyal.GetComponent<Bottle>().GetBottleType());
-                Destroy(collision.gameObject);
             }
             else
             {
-                Destroy(this.gameObject); // or something different
+           //     Destroy(this.gameObject); // or something different
             }
         }
     }
@@ -47,6 +47,14 @@ public class Wall : MonoBehaviour
         if (wallStatus == Chemical.Type.yellow)
         {
             wallSprite.color = Color.yellow;
+        }
+    }
+    
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("ChemicalReaction"))
+        {
+            Debug.Log("Door received chemical reaction");
         }
     }
 }

@@ -7,6 +7,9 @@ TagManager:
   - SolidObject
   - Bottle
   - Wall
+  - ChemicalSerum
+  - Enemy
+  - ChemicalReaction
   layers:
   - Default
   - TransparentFX
