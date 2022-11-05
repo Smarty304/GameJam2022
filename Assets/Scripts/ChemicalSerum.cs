@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,18 @@ public class ChemicalSerum : MonoBehaviour
 {
     public Chemical.Type Type { get; set; }
     public ChemicalReactionType ReactionType { get; set; }
-    
+
     public enum ChemicalReactionType
     {
         nothing,
         explosion
     }
-    
+
+    private void Start()
+    {
+        GetComponentInChildren<Light>().color = Chemical.GetColor(Type);
+    }
+
     public void OnCollisionWithBottle(Bottle bottle)
     {
         Debug.Log("Serum has collision with bottle");
@@ -20,12 +26,13 @@ public class ChemicalSerum : MonoBehaviour
         ReactionType = ChemicalReactionType.nothing;
         var comp = gameObject.AddComponent<Rigidbody2D>();
         comp.bodyType = RigidbodyType2D.Kinematic;
-        
+
         // Disable / enable to trigger collision
         // GetComponent<Collider2D>().enabled = false;
         // GetComponent<Collider2D>().enabled = true;
 
         ReactionType = CreateReaction(Type, bottle.GetComponent<Bottle>().GetBottleType());
+        Destroy(this.gameObject, 10);
     }
 
     public static ChemicalReactionType CreateReaction(Chemical.Type t1, Chemical.Type t2)
@@ -38,5 +45,4 @@ public class ChemicalSerum : MonoBehaviour
 
         return ChemicalReactionType.nothing;
     }
-    
 }
