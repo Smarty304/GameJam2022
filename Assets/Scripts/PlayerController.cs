@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _movementVelocity = 3.0f;
     private Rigidbody2D _myRigidbody;
 
-    public float HorizontalMoveSpeed, VerticalMoveSpeed;
+    public float HorizontalMoveSpeed, VerticalMoveSpeed = 400;
     public float MaxJumpTime = 0.15f;
     public float AdditionalJumpForce = 10;
     public const float GRAVITY_SCALE = 5;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         _movementControl.action.Disable();
         _throw.action.Disable();
     }
+
     void Start()
     {
         _myRigidbody = GetComponent<Rigidbody2D>();
@@ -42,26 +44,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-    //    Vector3 movement = _movementControl.action.ReadValue<Vector2>() * _movementVelocity;
-    //    transform.position += movement * Time.deltaTime;
-
-    if (_movementControl.action.ReadValue<Vector2>().y > 0)
-    {
-        // Jumps
-        if (_jumping)
+        if (_movementControl.action.ReadValue<Vector2>().y > 0)
         {
-            _currentJumpTime += Time.deltaTime;
+            // Jumps
+            if (_jumping)
+            {
+                _currentJumpTime += Time.deltaTime;
+            }
         }
-    }
-    else
-    {
-        if (_jumping)
+        else
         {
-            _jumping = false;
-            _currentJumpTime = 0;
+            if (_jumping)
+            {
+                _jumping = false;
+                _currentJumpTime = 0;
+            }
         }
-    }
-        
     }
 
     private void FixedUpdate()
@@ -79,9 +77,7 @@ public class PlayerController : MonoBehaviour
             else if (_myRigidbody.velocity.x < -MAX_FORCE_NORMAL)
             {
                 _myRigidbody.velocity = new Vector2(-MAX_FORCE_NORMAL, _myRigidbody.velocity.y);
-
             }
-            
         }
         else if (movement.x > 0)
         {
@@ -94,7 +90,6 @@ public class PlayerController : MonoBehaviour
             else if (_myRigidbody.velocity.x > MAX_FORCE_NORMAL)
             {
                 _myRigidbody.velocity = new Vector2(MAX_FORCE_NORMAL, _myRigidbody.velocity.y);
-
             }
         }
         else
@@ -106,13 +101,13 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        
+
         _myRigidbody.gravityScale =
             _myRigidbody.velocity.y < 0 ? FALLING_GRAVITY_SCALE : GRAVITY_SCALE;
     }
+
     private void Jump()
     {
-        Debug.Log("Jump");
         // If the player just started jumping, the jump height can be increased by holding jump button
         if (_jumping && _currentJumpTime <= MaxJumpTime)
         {
@@ -132,4 +127,18 @@ public class PlayerController : MonoBehaviour
         _jumping = true;
         _myRigidbody.AddForce(Vector2.up * Time.fixedDeltaTime * VerticalMoveSpeed, ForceMode2D.Impulse);
     }
+
+    private void OnCollisionStay2D(Collision2D other)
+    { 
+        if (other.collider.CompareTag("SolidObject"))
+        {
+            ContactPoint2D contactPoint = other.GetContact(0);
+
+            if (Vector3.Dot(contactPoint.normal, Vector3.up) > 0.5)
+            {
+                _touchesGround = true;
+                _currentJumpTime = 0;
+            }
+        }
+    } 
 }
