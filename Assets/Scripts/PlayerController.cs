@@ -196,6 +196,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        audioPlayer.PlayBottlePickUpClip();
         if (other.CompareTag("Bottle"))
         {
             // Player collided with bottle trigger
