@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - SolidObject
+  - Bottle
+  - Wall
   layers:
   - Default
   - TransparentFX
