@@ -11,17 +11,42 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] [Range(0f,1f)] float throwingVolume = 1f;
     AudioClip throwClip;
 
+    [Header("BottlePickUp")]
+    [SerializeField] AudioClip[] BottlePickUpClips;
+    [SerializeField] [Range(0f, 1f)] float PickUpVolume = 1f;
+    AudioClip BottlePickUpClip;
+
+    [Header("PlayerDeath")]
+    [SerializeField] AudioClip[] playerDeathClips;
+    [SerializeField] [Range(0f, 1f)] float playerDeathVolume = 1f;
+    AudioClip playerDeathClip;
+
+    [Header("Explosion")]
+    [SerializeField] AudioClip[] explosionClips;
+    [SerializeField] [Range(0f, 1f)] float explosionVolume = 1f;
+    AudioClip explosionClip;
+    
+    [Header("BottleBreak")]
+    [SerializeField] AudioClip[] bottleBreakClips;
+    [SerializeField] [Range(0f, 1f)] float bottleBreakVolume = 1f;
+    AudioClip bottleBreakClip;
+
+    [Header("EnemyDeath")]
+    [SerializeField] AudioClip[] enemyDeathClips;
+    [SerializeField] [Range(0f, 1f)] float enemyDeathVolume = 1f;
+    AudioClip enemyDeathClip;
+
+    [Header("Freeze")]
+    [SerializeField] AudioClip[] freezeClips;
+    [SerializeField] [Range(0f, 1f)] float freezeVolume = 1f;
+    AudioClip freezeClip;
+
+
+
     //TODO
-    //BottlePickUp
-    //playerDeath
-    //Ambientsound
-    //enemy?
-    //Explo
+
     //Jump
     //Walk
-    //BottleBreak
-    //Enemy death
-    //freeze
 
 
     public void PlayThrowingClip()
@@ -30,15 +55,99 @@ public class AudioPlayer : MonoBehaviour
         {
             int i = Random.Range(0, throwingClips.Length);
 
-            AudioClip throwClip = throwingClips[i];
+            throwClip = throwingClips[i];
             PlayAudioClip(throwClip, throwingVolume);
-            //AudioSource.PlayClipAtPoint(throwClip, Camera.main.transform.position, throwingVolume);
         }
     }
+
+    public void PlayBottlePickUpClip()
+    {
+        if (BottlePickUpClips != null)
+        {
+            int i = Random.Range(0, BottlePickUpClips.Length);
+
+            BottlePickUpClip = BottlePickUpClips[i];
+            PlayAudioClip(BottlePickUpClip, PickUpVolume);
+        }
+    }
+
+    public void PlayPlayerDeathClip()
+    {
+        if (playerDeathClips != null)
+        {
+            int i = Random.Range(0, playerDeathClips.Length);
+
+            playerDeathClip = playerDeathClips[i];
+            PlayAudioClip(playerDeathClip, playerDeathVolume);
+        }
+    }
+
+    public void PlayExplosionClip()
+    {
+        if (explosionClips != null)
+        {
+            int i = Random.Range(0, explosionClips.Length);
+
+            explosionClip = explosionClips[i];
+            PlayAudioClip(explosionClip, explosionVolume);
+        }
+    }
+
+    public void PlayBottleBreakClip()
+    {
+        if (bottleBreakClips != null)
+        {
+            int i = Random.Range(0, bottleBreakClips.Length);
+            bottleBreakClip = bottleBreakClips[i];
+            PlayAudioClip(bottleBreakClip, bottleBreakVolume);
+        }
+    }
+
+    public void PlayEnemyDeathClip()
+    {
+        if (enemyDeathClips != null)
+        {
+            int i = Random.Range(0, enemyDeathClips.Length);
+            enemyDeathClip = enemyDeathClips[i];
+            PlayAudioClip(enemyDeathClip, enemyDeathVolume);
+        }
+    }
+
+    public void PlayFreezeClip()
+    {
+        if (freezeClips != null)
+        {
+            int i = Random.Range(0, freezeClips.Length);
+            freezeClip = freezeClips[i];
+            PlayAudioClip(freezeClip, freezeVolume);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     void PlayAudioClip(AudioClip audioclip, float volume)
     {
         Vector3 cameraPos = Camera.main.transform.position;
         AudioSource.PlayClipAtPoint(audioclip, cameraPos, volume);
     }
+
 }

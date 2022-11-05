@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
     [SerializeField] private InputActionReference _movementControl;
     [SerializeField] private InputActionReference _throw;
 
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        startAnim();
         if (_movementControl.action.ReadValue<Vector2>().y > 0)
         {
             // Jumps
@@ -101,7 +103,13 @@ public class PlayerController : MonoBehaviour
 
         GetComponent<SpriteRenderer>().flipX = _looksLeft;
     }
-
+    private void startAnim()
+    {
+        if (_touchesGround != true) { animator.SetBool("inair", true); }
+        else { animator.SetBool("inair", false); }
+        if (MathF.Abs(_myRigidbody.velocity.x) <= 0.1) { animator.SetBool("running", false); }
+        else { animator.SetBool("running", true); }
+    }
     private void FixedUpdate()
     {
         Vector2 movement = _movementControl.action.ReadValue<Vector2>();
@@ -188,6 +196,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        audioPlayer.PlayBottlePickUpClip();
         if (other.CompareTag("Bottle"))
         {
             // Player collided with bottle trigger
