@@ -40,7 +40,7 @@ public class Wall : MonoBehaviour
         if (other.CompareTag("ChemicalReaction"))
         {
             var reactionType = other.GetComponent<ChemicalSerum>().ReactionType;
-
+            
             if (reactionType == ChemicalSerum.ChemicalReactionType.explosion)
             {
                 Destroy(other.gameObject);
