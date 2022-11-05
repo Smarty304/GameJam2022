@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private bool _jumping;
     private bool _touchesGround;
     private float _currentJumpTime;
+    private int _currentSlot; // which slot is currently selected
+    private InventorySlot[] _slots;
 
     private void OnEnable()
     {
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _myRigidbody = GetComponent<Rigidbody2D>();
+        _slots = new InventorySlot[] {new InventorySlot(), new InventorySlot(), new InventorySlot()};
+        _currentSlot = 0;
     }
 
     void Update()
@@ -59,6 +63,18 @@ public class PlayerController : MonoBehaviour
                 _jumping = false;
                 _currentJumpTime = 0;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            _currentSlot = 0;
+        } else if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            _currentSlot = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            _currentSlot = 2;
         }
     }
 
@@ -130,16 +146,37 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionStay2D(Collision2D other)
-    { 
+    {
         if (other.collider.CompareTag("SolidObject"))
         {
-            ContactPoint2D contactPoint = other.GetContact(0);
-
-            if (Vector3.Dot(contactPoint.normal, Vector3.up) > 0.5)
+            ContactPoint2D[] contactPoints = new ContactPoint2D[4];
+            for (int i = 0; i < other.GetContacts(contactPoints); i++)
             {
-                _touchesGround = true;
-                _currentJumpTime = 0;
+                if (Vector3.Dot(contactPoints[i].normal, Vector3.up) > 0.5)
+                {
+                    _touchesGround = true;
+                    _currentJumpTime = 0;
+                }
             }
         }
-    } 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Bottle"))
+        {
+            // Player collided with bottle trigger
+            other.GetComponent<Bottle>().OnPickup();
+            _slots[_currentSlot].Item = other.gameObject;
+        }
+    }
+
+    class InventorySlot
+    {
+        public GameObject Item
+        {
+            get => Item;
+            set => Item = value; 
+        }
+    }
 }
