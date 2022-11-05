@@ -10,13 +10,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputActionReference _movementControl;
     [SerializeField] private InputActionReference _throw;
 
-    [Header("BottleStuff")]
-    [SerializeField] GameObject currentBottle; // WorkAround for Bottle PickUp
+    [Header("BottleStuff")] [SerializeField]
+    GameObject currentBottle; // WorkAround for Bottle PickUp
+
     [SerializeField] float throwForce = 10f;
     bool isAliveBottle = false;
-    
-    [Header("Movement Settings")]
-    public float HorizontalMoveSpeed, VerticalMoveSpeed = 400;
+
+    [Header("Movement Settings")] public float HorizontalMoveSpeed, VerticalMoveSpeed = 400;
     public float MaxJumpTime = 0.15f;
     public float AdditionalJumpForce = 10;
     public const float GRAVITY_SCALE = 5;
@@ -28,9 +28,10 @@ public class PlayerController : MonoBehaviour
     private bool _touchesGround;
     private float _currentJumpTime;
     private int _currentSlot; // which slot is currently selected
+    private bool _looksLeft;
     private InventorySlot[] _slots;
     private Rigidbody2D _myRigidbody;
-    
+
     private void OnEnable()
     {
         _movementControl.action.Enable();
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _currentSlot = 0;
-        } 
+        }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _currentSlot = 1;
@@ -81,21 +82,25 @@ public class PlayerController : MonoBehaviour
         {
             _currentSlot = 2;
         }
+
         currentBottle = _slots[_currentSlot].Item;
 
         if (_throw.action.WasPerformedThisFrame())
         {
             ThrowBottle();
         }
-        
+
+
+        GetComponent<SpriteRenderer>().flipX = _looksLeft;
     }
 
     private void FixedUpdate()
     {
         Vector2 movement = _movementControl.action.ReadValue<Vector2>();
 
-        if (movement.x < 0)
+        if (movement.x < 0) // Move left
         {
+            _looksLeft = true;
             _myRigidbody.AddForce(new Vector2(-HorizontalMoveSpeed * Time.fixedDeltaTime, 0), ForceMode2D.Force);
 
             if (_myRigidbody.velocity.x > -MIN_FORCE)
@@ -107,8 +112,9 @@ public class PlayerController : MonoBehaviour
                 _myRigidbody.velocity = new Vector2(-MAX_FORCE_NORMAL, _myRigidbody.velocity.y);
             }
         }
-        else if (movement.x > 0)
+        else if (movement.x > 0) // Move right
         {
+            _looksLeft = false;
             _myRigidbody.AddForce(new Vector2(HorizontalMoveSpeed * Time.fixedDeltaTime, 0), ForceMode2D.Force);
 
             if (_myRigidbody.velocity.x < MIN_FORCE)
@@ -185,32 +191,39 @@ public class PlayerController : MonoBehaviour
 
     class InventorySlot
     {
-        public GameObject Item
-        {
-            get;
-            set;
-        }
+        public GameObject Item { get; set; }
     }
-    
+
     private void ThrowBottle()
     {
+        if (_slots[_currentSlot].Item == null)
+        {
+            return;
+        }
+
         if (!isAliveBottle)
         {
-            Debug.Log("Boom");
-            GameObject aliveBottle = Instantiate(currentBottle, transform.position + Vector3.right, Quaternion.identity);
+            Vector3 spawnDirection = _looksLeft ? Vector3.left : Vector3.right;
+            GameObject aliveBottle =
+                Instantiate(currentBottle, transform.position + spawnDirection, Quaternion.identity);
+            
+            // Change physics of bottle
             aliveBottle.GetComponent<Collider2D>().isTrigger = false;
             aliveBottle.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             aliveBottle.GetComponent<SpriteRenderer>().enabled = true;
             
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), aliveBottle.GetComponent<Collider2D>());
             aliveBottle.GetComponent<Collider2D>().enabled = true;
-            aliveBottle.GetComponent<Rigidbody2D>().AddForce((new Vector2(1f, 0.5f) * throwForce) + _myRigidbody.velocity);
+            
+            Vector2 direction = _looksLeft ? new Vector2(-1f, 0.5f) : new Vector2(1f, 0.5f);
+            aliveBottle.GetComponent<Rigidbody2D>()
+                .AddForce(((direction) * throwForce));
 
             isAliveBottle = true;
             Invoke(nameof(killBottle), 5f);
         }
     }
-    
+
     void killBottle()
     {
         isAliveBottle = false;

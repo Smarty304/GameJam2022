@@ -8,7 +8,7 @@ using UnityEngine;
 public class Bottle : MonoBehaviour
 {
     [SerializeField]
-    private Status.Type _bottleType;
+    private Chemical.Type _bottleType;
         
     private bool _pickedUp; // if the bottle was picked up by the player or still lays on the ground
     
@@ -63,7 +63,7 @@ public class Bottle : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
     }
 
-    public Status.Type GetBottleType()
+    public Chemical.Type GetBottleType()
     {
         return _bottleType;
     }

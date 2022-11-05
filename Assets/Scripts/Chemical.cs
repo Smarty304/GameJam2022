@@ -1,4 +1,4 @@
-public class Status
+public class Chemical
 {
     public Type StatusType { get; }
 
@@ -10,7 +10,7 @@ public class Status
         yellow
     }
 
-    public Status(Type statusType)
+    public Chemical(Type statusType)
     {
         StatusType = statusType;
     }
