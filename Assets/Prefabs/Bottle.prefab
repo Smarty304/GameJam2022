@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bottleType: 0
-  _chemicalSerum: {fileID: 2410336111428345078, guid: 8ddddaa4d329a7f47a8912cbd6630a7b, type: 3}
 --- !u!70 &109337666774003465
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
