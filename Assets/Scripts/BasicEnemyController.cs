@@ -61,7 +61,7 @@ public class BasicEnemyController : MonoBehaviour
         SwitchState(State.DEAD);
     }
 
-    public void GetHitBy(Bottle.BottleType bottle)
+   /* public void GetHitBy(Bottle.BottleType bottle)
     {
         switch(bottle)
         {
@@ -77,7 +77,7 @@ public class BasicEnemyController : MonoBehaviour
         }
 
         BottleDuration = 5f;
-    }
+    } */
 
     private void EnterWalkingState()
     {
