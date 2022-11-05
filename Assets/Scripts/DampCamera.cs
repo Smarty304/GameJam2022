@@ -25,7 +25,7 @@ public class DampCamera : MonoBehaviour
         }
 
         // Define a target position above and behind the target transform
-        Vector3 targetPosition = new Vector3(target.position.x, target.position.y + lookmodi, /*-200*/ -14);
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y + lookmodi, /*-200*/ -10);
 
         // Smoothly move the camera towards that target position
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
