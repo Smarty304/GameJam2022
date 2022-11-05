@@ -43068,6 +43068,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bottle
       objectReference: {fileID: 0}
+    - target: {fileID: 2630417085846791245, guid: 6dc32812c42dcc748afe6f4194294ee7, type: 3}
+      propertyPath: _bottleType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9184024648765465240, guid: 6dc32812c42dcc748afe6f4194294ee7, type: 3}
       propertyPath: m_RootOrder
       value: 1

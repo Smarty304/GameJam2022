@@ -5,13 +5,13 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     GameObject bottleRoyal;
-    Status.Type wallStatus;
+    Chemical.Type wallStatus;
     SpriteRenderer wallSprite;
 
     private void Start()
     {
         wallSprite = GetComponent<SpriteRenderer>();
-        wallStatus = Status.Type.empty;
+        wallStatus = Chemical.Type.empty;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -19,9 +19,10 @@ public class Wall : MonoBehaviour
         if (collision.gameObject.CompareTag("Bottle"))
         {
             bottleRoyal = collision.gameObject;
-            if (wallStatus == Status.Type.empty)
+            if (wallStatus == Chemical.Type.empty)
             {
                 ChangeWallStatus(bottleRoyal.GetComponent<Bottle>().GetBottleType());
+                Destroy(collision.gameObject);
             }
             else
             {
@@ -30,18 +31,20 @@ public class Wall : MonoBehaviour
         }
     }
 
-    void ChangeWallStatus(Status.Type newStatus)
+    void ChangeWallStatus(Chemical.Type newStatus)
     {
         wallStatus = newStatus;
-        if(wallStatus == Status.Type.blue)
+        if (wallStatus == Chemical.Type.blue)
         {
             wallSprite.color = Color.blue;
         }
-        if (wallStatus == Status.Type.red)
+
+        if (wallStatus == Chemical.Type.red)
         {
             wallSprite.color = Color.red;
         }
-        if (wallStatus == Status.Type.yellow)
+
+        if (wallStatus == Chemical.Type.yellow)
         {
             wallSprite.color = Color.yellow;
         }
