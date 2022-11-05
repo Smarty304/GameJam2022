@@ -9,10 +9,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private InputActionReference _movementControl;
     [SerializeField] private InputActionReference _throw;
-    [SerializeField] private float _playerSpeed = 2.0f;
-    [SerializeField] private float _movementVelocity = 3.0f;
-    private Rigidbody2D _myRigidbody;
 
+    [Header("BottleStuff")]
+    [SerializeField] GameObject currentBottle; // WorkAround for Bottle PickUp
+    [SerializeField] float throwForce = 10f;
+    bool isAliveBottle = false;
+    
+    [Header("Movement Settings")]
     public float HorizontalMoveSpeed, VerticalMoveSpeed = 400;
     public float MaxJumpTime = 0.15f;
     public float AdditionalJumpForce = 10;
@@ -26,7 +29,8 @@ public class PlayerController : MonoBehaviour
     private float _currentJumpTime;
     private int _currentSlot; // which slot is currently selected
     private InventorySlot[] _slots;
-
+    private Rigidbody2D _myRigidbody;
+    
     private void OnEnable()
     {
         _movementControl.action.Enable();
@@ -65,17 +69,25 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _currentSlot = 0;
-        } else if (Input.GetKeyDown(KeyCode.Keypad1))
+        } 
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _currentSlot = 1;
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _currentSlot = 2;
         }
+        currentBottle = _slots[_currentSlot].Item;
+
+        if (_throw.action.WasPerformedThisFrame())
+        {
+            ThrowBottle();
+        }
+        
     }
 
     private void FixedUpdate()
@@ -136,7 +148,6 @@ public class PlayerController : MonoBehaviour
             _myRigidbody.velocity.y <
             -0.001) // player cant jump if he doesnt touch the ground or is falling down
         {
-            Debug.Log("Player cant jump");
             return;
         }
 
@@ -167,6 +178,7 @@ public class PlayerController : MonoBehaviour
         {
             // Player collided with bottle trigger
             other.GetComponent<Bottle>().OnPickup();
+            other.transform.parent = this.transform;
             _slots[_currentSlot].Item = other.gameObject;
         }
     }
@@ -175,8 +187,32 @@ public class PlayerController : MonoBehaviour
     {
         public GameObject Item
         {
-            get => Item;
-            set => Item = value; 
+            get;
+            set;
         }
+    }
+    
+    private void ThrowBottle()
+    {
+        if (!isAliveBottle)
+        {
+            Debug.Log("Boom");
+            GameObject aliveBottle = Instantiate(currentBottle, transform.position + Vector3.right, Quaternion.identity);
+            aliveBottle.GetComponent<Collider2D>().isTrigger = false;
+            aliveBottle.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            aliveBottle.GetComponent<SpriteRenderer>().enabled = true;
+            
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), aliveBottle.GetComponent<Collider2D>());
+            aliveBottle.GetComponent<Collider2D>().enabled = true;
+            aliveBottle.GetComponent<Rigidbody2D>().AddForce((new Vector2(1f, 0.5f) * throwForce) + _myRigidbody.velocity);
+
+            isAliveBottle = true;
+            Invoke(nameof(killBottle), 5f);
+        }
+    }
+    
+    void killBottle()
+    {
+        isAliveBottle = false;
     }
 }
