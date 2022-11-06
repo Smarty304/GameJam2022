@@ -9,7 +9,13 @@ public class Wall : MonoBehaviour
     GameObject bottleRoyal;
     Chemical.Type wallStatus;
     SpriteRenderer wallSprite;
+    GameObject playerChar;
 
+
+    private void Awake()
+    {
+        playerChar = GameObject.FindGameObjectWithTag("Player");
+    }
     private void Start()
     {
         wallSprite = GetComponent<SpriteRenderer>();
@@ -46,6 +52,21 @@ public class Wall : MonoBehaviour
                 Destroy(other.gameObject);
                 Destroy(this.gameObject);    
             }
+
+            if(reactionType == ChemicalSerum.ChemicalReactionType.sticky)
+            {
+                ChangeWallStatus(Chemical.Type.yellow);
+                playerChar.GetComponent<PlayerController>().IsSticky = true;
+                //Player disables gravity
+                //Player changes from walk to stickywalk
+            }
+
         }
+
+        if (other.CompareTag("Player") && wallStatus == Chemical.Type.yellow)
+        {
+            playerChar.GetComponent<PlayerController>().IsSticky = true;
+        }
+        else { playerChar.GetComponent<PlayerController>().IsSticky = false ; }
     }
 }
