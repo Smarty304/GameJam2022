@@ -7,13 +7,37 @@ public class Zombie : Enemy
 {
     public float aggroRange = 2;
     private bool _playerInRange; // if player is in aggro range
+    public bool wanders;
 
+    public Transform p1, p2;
+    private Transform _currentPoint; // the point zombie is walking to
+
+    private void Start()
+    {
+        _currentPoint = p1;
+    }
+    
     private void FixedUpdate()
     {
         var playerPos = base.player.transform.position;
         var zombiePos = this.transform.position;
         var distance = Vector2.Distance(playerPos, zombiePos);
 
+        if (wanders)
+        {
+            float pointDistance = Vector2.Distance(_currentPoint.position, transform.position);
+
+            if (pointDistance <= 2)
+            {
+                ChangePoint();
+            }
+            
+            Vector2 direction = transform.position + _currentPoint.position;
+            direction.Normalize();
+            base.MoveHorizontal((int)direction.x);
+            return;
+        }
+        
         _playerInRange = Math.Abs(distance) <= aggroRange;
 
         if (!_playerInRange) // Zombie just stays on spot when player is not in range
@@ -32,6 +56,18 @@ public class Zombie : Enemy
         }
     }
 
+    public void ChangePoint()
+    {
+        if (_currentPoint.Equals(p1))
+        {
+            _currentPoint = p2;
+        }
+        else
+        {
+            _currentPoint = p1;
+        }
+    }
+    
     /**
      * When the enemy is hit directly by the bottle
      */
