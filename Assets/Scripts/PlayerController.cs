@@ -40,8 +40,11 @@ public class PlayerController : MonoBehaviour
     private bool _looksLeft;
     private InventorySlot[] _slots;
     private Rigidbody2D _myRigidbody;
+    private bool isSticky;
 
     AudioPlayer audioPlayer;
+
+    public bool IsSticky { get => isSticky; set => isSticky = value; }
 
     private void Awake()
     {
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isSticky) { Debug.Log("yucky"); }
         startAnim();
         if (_movementControl.action.ReadValue<Vector2>().y > 0)
         {
