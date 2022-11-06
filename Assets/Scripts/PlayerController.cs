@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour
     public const float MAX_FORCE_NORMAL = 6;
 
     [SerializeField] private Transform respawnPosition;
-    public UnityEvent<GameObject> ItemPickup;
+    public UnityEvent<GameObject, int> ItemPickup;
+    public UnityEvent<int> SelectSlot;
     
     private bool _jumping;
     private bool _touchesGround;
@@ -93,14 +94,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _currentSlot = 0;
+            SelectSlot.Invoke(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _currentSlot = 1;
+            SelectSlot.Invoke(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _currentSlot = 2;
+            SelectSlot.Invoke(2);
         }
 
         currentBottle = _slots[_currentSlot].Item;
@@ -213,7 +217,7 @@ public class PlayerController : MonoBehaviour
             other.GetComponent<Bottle>().OnPickup();
             other.transform.parent = this.transform;
             _slots[_currentSlot].Item = other.gameObject;
-            ItemPickup.Invoke(_slots[_currentSlot].Item);
+            ItemPickup.Invoke(_slots[_currentSlot].Item, _currentSlot);
         }
     }
 
