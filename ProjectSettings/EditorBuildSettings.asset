@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial.unity
     guid: f5473d0288b9e214185dda30ca5edbfa
   - enabled: 1
+    path: Assets/Scenes/Boss.unity
+    guid: 85be33bdaeecab246bb050c8363dbd60
+  - enabled: 1
     path: Assets/Scenes/PersistentScene.unity
     guid: dd4d6b6f6be873541bdb432efb363959
   m_configObjects: {}
