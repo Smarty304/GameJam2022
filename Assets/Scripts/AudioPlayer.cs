@@ -8,37 +8,37 @@ public class AudioPlayer : MonoBehaviour
 
     [Header("Throwing")]
     [SerializeField] AudioClip[] throwingClips;
-    [SerializeField] [Range(0f,1f)] float throwingVolume = 1f;
+    [SerializeField] [Range(0f,2f)] float throwingVolume = 1f;
     AudioClip throwClip;
 
     [Header("BottlePickUp")]
     [SerializeField] AudioClip[] BottlePickUpClips;
-    [SerializeField] [Range(0f, 1f)] float PickUpVolume = 1f;
+    [SerializeField] [Range(0f, 2f)] float PickUpVolume = 1f;
     AudioClip BottlePickUpClip;
 
     [Header("PlayerDeath")]
     [SerializeField] AudioClip[] playerDeathClips;
-    [SerializeField] [Range(0f, 1f)] float playerDeathVolume = 1f;
+    [SerializeField] [Range(0f, 2f)] float playerDeathVolume = 1f;
     AudioClip playerDeathClip;
 
     [Header("Explosion")]
     [SerializeField] AudioClip[] explosionClips;
-    [SerializeField] [Range(0f, 1f)] float explosionVolume = 1f;
+    [SerializeField] [Range(0f, 2f)] float explosionVolume = 1f;
     AudioClip explosionClip;
     
     [Header("BottleBreak")]
     [SerializeField] AudioClip[] bottleBreakClips;
-    [SerializeField] [Range(0f, 1f)] float bottleBreakVolume = 1f;
+    [SerializeField] [Range(0f, 2f)] float bottleBreakVolume = 1f;
     AudioClip bottleBreakClip;
 
     [Header("EnemyDeath")]
     [SerializeField] AudioClip[] enemyDeathClips;
-    [SerializeField] [Range(0f, 1f)] float enemyDeathVolume = 1f;
+    [SerializeField] [Range(0f, 2f)] float enemyDeathVolume = 1f;
     AudioClip enemyDeathClip;
 
     [Header("Freeze")]
     [SerializeField] AudioClip[] freezeClips;
-    [SerializeField] [Range(0f, 1f)] float freezeVolume = 1f;
+    [SerializeField] [Range(0f, 10f)] float freezeVolume = 1f;
     AudioClip freezeClip;
 
 
