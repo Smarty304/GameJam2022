@@ -12,7 +12,8 @@ public class ChemicalSerum : MonoBehaviour
     public enum ChemicalReactionType
     {
         nothing,
-        explosion
+        explosion,
+        freeze
     }
 
     private void Start()
@@ -25,8 +26,8 @@ public class ChemicalSerum : MonoBehaviour
     {
         this.tag = "ChemicalReaction"; // change tag
         ReactionType = ChemicalReactionType.nothing;
-        var comp = gameObject.AddComponent<Rigidbody2D>();
-        comp.bodyType = RigidbodyType2D.Kinematic;
+        //var comp = gameObject.AddComponent<Rigidbody2D>();
+        //comp.bodyType = RigidbodyType2D.Kinematic;
 
         // Disable / enable to trigger collision
         // GetComponent<Collider2D>().enabled = false;
@@ -39,6 +40,7 @@ public class ChemicalSerum : MonoBehaviour
             var particles = Instantiate(ExplosionParticle, transform.position, Quaternion.identity);
             foreach (var particle in particles.GetComponentsInChildren<ParticleSystem>())
             {
+                Bottle._player.PlayExplosionClip();
                 particle.Play();
             }
         }
@@ -54,6 +56,12 @@ public class ChemicalSerum : MonoBehaviour
             return ChemicalReactionType.explosion;
         }
 
+        if (t1 == Chemical.Type.blue && t2 == Chemical.Type.white ||
+            t1 == Chemical.Type.white && t2 == Chemical.Type.blue)
+        {
+            return ChemicalReactionType.freeze;
+        }
+        
         return ChemicalReactionType.nothing;
     }
 }

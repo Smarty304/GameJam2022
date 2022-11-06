@@ -12,7 +12,7 @@ public class Bottle : MonoBehaviour
 
     [SerializeField] private GameObject _chemicalSerum;
     private bool _pickedUp; // if the bottle was picked up by the player or still lays on the ground
-    private static AudioPlayer _player;
+    public static AudioPlayer _player;
 
     private void Awake()
     {

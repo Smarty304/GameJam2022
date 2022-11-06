@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="92ca2896-3975-472d-9d83-83a0aa04f4d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GameJam2022/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GameJam2022/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Serum.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Serum.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SoundTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SoundTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bottle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bottle.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChemicalSerum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChemicalSerum.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Water.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Water.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +48,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="ReSpellerSettingsId" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
