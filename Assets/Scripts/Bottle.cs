@@ -12,7 +12,12 @@ public class Bottle : MonoBehaviour
 
     [SerializeField] private GameObject _chemicalSerum;
     private bool _pickedUp; // if the bottle was picked up by the player or still lays on the ground
+    private static AudioPlayer _player;
 
+    private void Awake()
+    {
+        _player = FindObjectOfType<AudioPlayer>();
+    }
 
     void Start()
     {
@@ -26,12 +31,14 @@ public class Bottle : MonoBehaviour
             if (other.transform.CompareTag("Enemy"))
             {
                 // Bottle hit an enemy
+                _player.PlayBottleBreakClip();
                 other.transform.GetComponent<Enemy>().AddChemical(_bottleType);
                 Destroy(this.gameObject);
             }
 
             if (other.transform.CompareTag("SolidObject") || other.transform.CompareTag("Wall"))
             {
+                _player.PlayBottleBreakClip();
                 Collider2D[] colliders = new Collider2D[10];
                 for (int i = 0;
                     i < Physics2D.OverlapCollider(GetComponent<Collider2D>(), new ContactFilter2D().NoFilter(),

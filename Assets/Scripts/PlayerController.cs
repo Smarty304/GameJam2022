@@ -244,6 +244,7 @@ public class PlayerController : MonoBehaviour
 
     void killBottle()
     {
+        
         isAliveBottle = false;
     }
 }

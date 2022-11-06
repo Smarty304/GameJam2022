@@ -18,11 +18,11 @@ public class ChemicalSerum : MonoBehaviour
     private void Start()
     {
         GetComponentInChildren<Light>().color = Chemical.GetColor(Type);
+        Destroy(this.gameObject, 3);
     }
 
     public void OnCollisionWithBottle(Bottle bottle)
     {
-        Debug.Log("Serum has collision with bottle");
         this.tag = "ChemicalReaction"; // change tag
         ReactionType = ChemicalReactionType.nothing;
         var comp = gameObject.AddComponent<Rigidbody2D>();
@@ -43,7 +43,7 @@ public class ChemicalSerum : MonoBehaviour
             }
         }
         
-        Destroy(this.gameObject, 10);
+        Destroy(this.gameObject, 1);
     }
 
     public static ChemicalReactionType CreateReaction(Chemical.Type t1, Chemical.Type t2)
