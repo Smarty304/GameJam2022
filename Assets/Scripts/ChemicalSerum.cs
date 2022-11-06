@@ -51,8 +51,8 @@ public class ChemicalSerum : MonoBehaviour
 
     public static ChemicalReactionType CreateReaction(Chemical.Type t1, Chemical.Type t2)
     {
-        if ((t1 == Chemical.Type.red && t2 == Chemical.Type.yellow) ||
-            (t1 == Chemical.Type.yellow && t2 == Chemical.Type.red))
+        if ((t1 == Chemical.Type.red && t2 == Chemical.Type.white) ||
+            (t1 == Chemical.Type.white && t2 == Chemical.Type.red))
         {
             return ChemicalReactionType.explosion;
         }
@@ -63,8 +63,8 @@ public class ChemicalSerum : MonoBehaviour
             return ChemicalReactionType.freeze;
         }
 
-        if (t1 == Chemical.Type.yellow && t2 == Chemical.Type.white ||
-            t1 == Chemical.Type.white && t2 == Chemical.Type.yellow)
+        if (t1 == Chemical.Type.yellow && t2 == Chemical.Type.blue ||
+            t1 == Chemical.Type.blue && t2 == Chemical.Type.yellow)
         {
             return ChemicalReactionType.sticky;
         }

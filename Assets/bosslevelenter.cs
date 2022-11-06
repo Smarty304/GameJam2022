@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class bosslevelenter : MonoBehaviour
 {
+    public int sceneindextotravel;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,6 @@ public class bosslevelenter : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(sceneindextotravel);
     }
 }
