@@ -14,6 +14,7 @@ public class InventoryUI : MonoBehaviour
     {
       //  slot[slotNumber].GetComponentInChildren<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
         slot[slotNumber].GetComponentsInChildren<Image>()[1].sprite = item.GetComponent<SpriteRenderer>().sprite;
+        slot[slotNumber].GetComponentsInChildren<Image>()[1].color = Color.white;
     }
 
     public void SelectSlot(int slotNumber)
