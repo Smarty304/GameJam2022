@@ -13,7 +13,8 @@ public class ChemicalSerum : MonoBehaviour
     {
         nothing,
         explosion,
-        freeze
+        freeze,
+        sticky
     }
 
     private void Start()
@@ -61,7 +62,15 @@ public class ChemicalSerum : MonoBehaviour
         {
             return ChemicalReactionType.freeze;
         }
-        
+
+        if (t1 == Chemical.Type.yellow && t2 == Chemical.Type.white ||
+            t1 == Chemical.Type.white && t2 == Chemical.Type.yellow)
+        {
+            return ChemicalReactionType.sticky;
+        }
+
+
+
         return ChemicalReactionType.nothing;
     }
 }

@@ -46,6 +46,13 @@ public class Wall : MonoBehaviour
                 Destroy(other.gameObject);
                 Destroy(this.gameObject);    
             }
+
+            if(reactionType == ChemicalSerum.ChemicalReactionType.sticky)
+            {
+                ChangeWallStatus(Chemical.Type.yellow);
+                //Player disables gravity
+                //Player changes from walk to stickywalk
+            }
         }
     }
 }
