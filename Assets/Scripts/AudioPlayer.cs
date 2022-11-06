@@ -147,7 +147,7 @@ public class AudioPlayer : MonoBehaviour
     void PlayAudioClip(AudioClip audioclip, float volume)
     {
         Vector3 cameraPos = Camera.main.transform.position;
-        AudioSource.PlayClipAtPoint(audioclip, cameraPos, volume);
+        AudioSource.PlayClipAtPoint(audioclip, -cameraPos, volume);
     }
 
 }

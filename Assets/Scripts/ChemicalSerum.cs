@@ -18,7 +18,7 @@ public class ChemicalSerum : MonoBehaviour
     private void Start()
     {
         GetComponentInChildren<Light>().color = Chemical.GetColor(Type);
-        Destroy(this.gameObject, 3);
+        Destroy(this.gameObject, 10);
     }
 
     public void OnCollisionWithBottle(Bottle bottle)
