@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -219,6 +218,16 @@ public class PlayerController : MonoBehaviour
             _slots[_currentSlot].Item = other.gameObject;
             ItemPickup.Invoke(_slots[_currentSlot].Item, _currentSlot);
         }
+
+   
+         if (other.gameObject.tag == "Respawn")
+            {
+                respawnPosition = other.gameObject.transform;
+
+            }
+
+
+        
     }
 
     class InventorySlot
@@ -268,5 +277,6 @@ public class PlayerController : MonoBehaviour
     public void ResetPlayer()
     {
         transform.position = respawnPosition.position;
+        Bottle._player.PlayPlayerDeathClip();
     }
 }
