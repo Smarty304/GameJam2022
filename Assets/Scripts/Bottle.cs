@@ -89,7 +89,6 @@ public class Bottle : MonoBehaviour
     public void OnPickup()
     {
         // Collider and Renderer get disabled on pickup but the item GameObject is not removed
-        Instantiate(this.gameObject, transform.position, Quaternion.identity);
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
         _pickedUp = true;
