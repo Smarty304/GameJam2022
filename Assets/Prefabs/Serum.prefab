@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 6926791725420301730}
   - component: {fileID: 6926791725420301732}
   - component: {fileID: 6926791725420301731}
+  - component: {fileID: 7865421967579188786}
   m_Layer: 0
   m_Name: Serum
   m_TagString: ChemicalSerum
@@ -178,3 +179,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionParticle: {fileID: 482320092718958142, guid: 755b6f5efe7cccc40a72caa72996502b, type: 3}
+--- !u!50 &7865421967579188786
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6926791725420301729}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
