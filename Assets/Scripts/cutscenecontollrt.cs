@@ -41,7 +41,7 @@ public class cutscenecontollrt : MonoBehaviour
         denkblase.SetActive(false);
         Walksound.Play();
         playerAnim.SetBool("running", true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.5f);
         SceneManager.LoadScene(2);
     }
 
