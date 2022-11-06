@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [Header("BottleStuff")] [SerializeField]
     GameObject currentBottle; // WorkAround for Bottle PickUp
 
+    private float bottleDelay; // how fast the player can throw bottles
+    
     [Header("SoundStuff")]
     
     [SerializeField] float throwForce = 10f;
@@ -27,6 +30,9 @@ public class PlayerController : MonoBehaviour
     public const float MIN_FORCE = 5;
     public const float MAX_FORCE_NORMAL = 6;
 
+    [SerializeField] private Transform respawnPosition;
+    public UnityEvent<GameObject> ItemPickup;
+    
     private bool _jumping;
     private bool _touchesGround;
     private float _currentJumpTime;
@@ -203,6 +209,7 @@ public class PlayerController : MonoBehaviour
             other.GetComponent<Bottle>().OnPickup();
             other.transform.parent = this.transform;
             _slots[_currentSlot].Item = other.gameObject;
+            ItemPickup.Invoke(_slots[_currentSlot].Item);
         }
     }
 
@@ -238,13 +245,20 @@ public class PlayerController : MonoBehaviour
                 .AddForce(((direction) * throwForce));
 
             isAliveBottle = true;
-            Invoke(nameof(killBottle), 5f);
+            Invoke(nameof(killBottle), bottleDelay);
         }
     }
 
     void killBottle()
     {
-        
         isAliveBottle = false;
+    }
+
+    /**
+     * When the player dies
+     */
+    public void ResetPlayer()
+    {
+        transform.position = respawnPosition.position;
     }
 }
