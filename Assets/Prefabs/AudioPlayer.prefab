@@ -50,7 +50,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1729094d9eea3104ba03d15a9e89644a, type: 3}
   - {fileID: 8300000, guid: c04ead0ff5bf27b4e80e7600d57d1a81, type: 3}
   - {fileID: 8300000, guid: 13d055316a2a49147b8c8cb8913d0645, type: 3}
-  throwingVolume: 0.285
+  throwingVolume: 0.645
   BottlePickUpClips:
   - {fileID: 8300000, guid: d673514575d855d4eb95facb043522bf, type: 3}
   PickUpVolume: 1
@@ -69,7 +69,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3d99ebbb5bec57449b3afc86f1af1dc7, type: 3}
   - {fileID: 8300000, guid: e65166ddaa2c59f41afa7fec56656d32, type: 3}
   - {fileID: 8300000, guid: 04c0bba4eaad64f4280c80ae18d5fec6, type: 3}
-  bottleBreakVolume: 1
+  bottleBreakVolume: 0.51
   enemyDeathClips:
   - {fileID: 8300000, guid: 743951bbb5cee5c4e9d90efb89676863, type: 3}
   - {fileID: 8300000, guid: 768a1d84fb9066e4e8af96f26ec69389, type: 3}
