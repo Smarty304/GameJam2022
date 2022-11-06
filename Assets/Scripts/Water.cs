@@ -34,8 +34,7 @@ public class Water : MonoBehaviour
         {
             if (!_freezed)
             {
-                // TODO Player reset
-                Debug.Log("Player drowns");
+                other.transform.GetComponent<PlayerController>().ResetPlayer();
             }        
         }
         
