@@ -67,6 +67,5 @@ public class Wall : MonoBehaviour
         {
             playerChar.GetComponent<PlayerController>().IsSticky = true;
         }
-        else { playerChar.GetComponent<PlayerController>().IsSticky = false ; }
     }
 }
