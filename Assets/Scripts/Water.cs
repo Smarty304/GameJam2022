@@ -7,6 +7,12 @@ public class Water : MonoBehaviour
 {
     private Chemical.Type _currentType;
     private bool _freezed;
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -43,7 +49,8 @@ public class Water : MonoBehaviour
     private void Freeze()
     {
         _freezed = true;
-        GetComponent<SpriteRenderer>().color = Color.cyan;
+        _animator.SetTrigger("Ice");
+        Bottle._player.PlayFreezeClip();
     }
     
 }

@@ -145031,6 +145031,34 @@ PrefabInstance:
       propertyPath: respawnPosition
       value: 
       objectReference: {fileID: 1900007630}
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: ItemPickup.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: ItemPickup.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: ItemPickup.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: ItemPickup.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: ItemPickup.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: ItemPickup.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702627922963617692, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
+      propertyPath: ItemPickup.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8702627922963617694, guid: 30331e1200125634ca9519f95f12ae70, type: 3}
       propertyPath: m_RootOrder
       value: 11
